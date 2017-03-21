@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<playground version='6.0' target-platform='ios'>
+    <pages>
+        <page name='Add Linked Lists'/>
+        <page name='Palindrome'/>
+        <page name='Reverse Integer'/>
+        <page name='Integer to Roman'/>
+        <page name='License Key Formatting'/>
+        <page name='Coin Change 2'/>
+        <page name='Longest Absolute Filepath'/>
+        <page name='memoize'/>
+        <page name='Permutations'/>
+        <page name='Container with most water'/>
+        <page name='Valid Soduku'/>
+        <page name='Sodoku Solver'/>
+        <page name='Anagram'/>
+    </pages>
+</playground>
