@@ -13,6 +13,7 @@
  The input is assumed to be a 32-bit signed integer. Your function should return 0 when the reversed integer overflows.
 */
 import Foundation
+import XCTest
 
 
 //: [Next](@next)
@@ -27,5 +28,5 @@ func reverse(_ x: Int) -> Int {
 
 }
 
-reverse(928374987234)
-reverse(-23412341423423123)
+XCTAssert( reverse(928374987234) == 432789473829 )
+XCTAssert( reverse(-23412341423423123) == -32132432414321432 )

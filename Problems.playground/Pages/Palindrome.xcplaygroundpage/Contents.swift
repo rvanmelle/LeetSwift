@@ -7,6 +7,7 @@
 */
 
 import Foundation
+import XCTest
 
 extension Int {
     var reversed : Int {
@@ -19,7 +20,7 @@ func isPalindrome(_ x: Int) -> Bool {
     return x == x.reversed
 }
 
-isPalindrome(29342)
-isPalindrome(5334335)
+XCTAssertFalse( isPalindrome(29342) )
+XCTAssert( isPalindrome(5334335) )
 
 

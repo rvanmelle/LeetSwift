@@ -24,6 +24,7 @@
  */
 
 import Foundation
+import XCTest
 
 extension String {
     var rev : String {
@@ -59,7 +60,7 @@ func licenseKeyFormatting(_ S: String, _ K: Int) -> String {
     return newPieces.joined(separator: "-").rev
 }
 
-let r1 = licenseKeyFormatting("2-4A0r7-4k", 4)
-let r2 = licenseKeyFormatting("2-4A0r7-4k", 3)
+XCTAssert( licenseKeyFormatting("2-4A0r7-4k", 4) == "24A0-r74k" )
+XCTAssert( licenseKeyFormatting("2-4A0r7-4k", 3) == "24-A0r-74k" )
 
 //: [Next](@next)

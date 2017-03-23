@@ -1,6 +1,7 @@
 //: [Previous](@previous)
 
 import Foundation
+import XCTest
 
 /*
  
@@ -26,55 +27,57 @@ extension Character {
         if self != "M" {
             guard cnt < 4 else { return "" }
         }
-        var result = ""
-        for _ in 1...cnt {
-            result += self.description
+        return (1...cnt).reduce("") { (result, _) -> String in
+            return result + description
         }
-        return result
     }
 
 }
 
-class Solution {
-    func handlePair(_ p1:(Character, Int), _ p2:(Character,Int)) -> String {
-        switch (p1,p2) {
-        case let ((c1,cnt1),(c2,cnt2)) where cnt2 == 4:
-            switch c1 {
-                case "D": return "CM"
-                case "L": return "XC"
-                case "V": return "IX"
-            default:
-                return "FOO"
-            }
+
+func handlePair(_ p1:(Character, Int), _ p2:(Character,Int)) -> String {
+    switch (p1,p2) {
+    case let ((c1,cnt1),(c2,cnt2)) where cnt2 == 4:
+        switch c1 {
+        case "D": return cnt1 == 1 ? "CM" : "CD"
+        case "L": return cnt1 == 1 ? "XC" : "XL"
+        case "V": return cnt1 == 1 ? "IX" : "IV"
         default:
-            let (c1,cnt1) = p1
-            return c1.times(cnt1)
+            return "FOO"
         }
-    }
-    func intToRoman(_ num: Int) -> String {
-        let ms = num / 1000
-        let ds = (num % 1000) / 500
-        let cs = (num % 500) / 100
-        let ls = (num % 100) / 50
-        let xs = (num % 50) / 10
-        let vs = (num % 10) / 5
-        let ones = (num % 5)
-        let pair1 = (Character("D"),ds)
-        let pair2 = (Character("C"),cs)
-        let pair3 = (Character("L"),ls)
-        let pair4 = (Character("X"),xs)
-        let pair5 = (Character("V"),vs)
-        let pair6 = (Character("I"),ones)
-        return Character("M").times(ms)
-            + handlePair(pair1, pair2)
-            + handlePair(pair2, pair3)
-            + handlePair(pair3, pair4)
-            + handlePair(pair4, pair5)
-            + handlePair(pair5, pair6)
-            + Character("I").times(ones)
+    default:
+        let (c1,cnt1) = p1
+        return c1.times(cnt1)
     }
 }
 
-Solution().intToRoman(4999)
-Solution().intToRoman(39)
-Solution().intToRoman(13562)
+func intToRoman(_ num: Int) -> String {
+    let ms = num / 1000
+    let ds = (num % 1000) / 500
+    let cs = (num % 500) / 100
+    let ls = (num % 100) / 50
+    let xs = (num % 50) / 10
+    let vs = (num % 10) / 5
+    let ones = (num % 5)
+    let pair1 = (Character("D"),ds)
+    let pair2 = (Character("C"),cs)
+    let pair3 = (Character("L"),ls)
+    let pair4 = (Character("X"),xs)
+    let pair5 = (Character("V"),vs)
+    let pair6 = (Character("I"),ones)
+    return Character("M").times(ms)
+        + handlePair(pair1, pair2)
+        + handlePair(pair2, pair3)
+        + handlePair(pair3, pair4)
+        + handlePair(pair4, pair5)
+        + handlePair(pair5, pair6)
+        + Character("I").times(ones)
+}
+
+XCTAssert( intToRoman(3) == "III" )
+XCTAssert( intToRoman(4) == "IV" )
+XCTAssert( intToRoman(8) == "VIII" )
+XCTAssert( intToRoman(9) == "IX" )
+XCTAssert( intToRoman(4999) == "MMMMCMXCIX" )
+XCTAssert( intToRoman(39) == "XXXIX" )
+

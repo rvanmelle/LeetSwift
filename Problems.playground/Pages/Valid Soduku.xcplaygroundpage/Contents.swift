@@ -11,13 +11,19 @@
  */
 
 import Foundation
+import XCTest
 
 struct Board {
 
-    let data: [[Character]]
+    var data: [[Character]]
 
     subscript(row: Int, column: Int) -> Character {
-        return data[row][column]
+        get {
+            return data[row][column]
+        }
+        set(newValue) {
+            data[row][column] = newValue
+        }
     }
 
     func row(_ r:Int) -> [Character] { return data[r] }
@@ -73,11 +79,10 @@ let problem : [[Character]] = [
     [".",".",".",".","8",".",".","7","9"],
 ]
 
-let b = Board(data:problem)
-isValidSudoku(b)
+var b = Board(data:problem)
+XCTAssert( isValidSudoku(b) )
+b[0,0] = "6"
+XCTAssert( !isValidSudoku(b) )
 
-
-b[3,4]
-[1,2,3,4][1...3]
 
 //: [Next](@next)

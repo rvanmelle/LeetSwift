@@ -1,6 +1,7 @@
 //: [Previous](@previous)
 
 import Foundation
+import XCTest
 
 /*
  
@@ -60,6 +61,8 @@ func change(_ amount: Int, _ coins: [Int]) -> Int {
     return result
 }
 
+change(5, [1,2,5])
+//XCTAssert( change(5, [1,2,5]) == 4 )
 change(3, [2])
 change(10, [10])
 change(10, [5,2,1])
