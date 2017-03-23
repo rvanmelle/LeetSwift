@@ -5,6 +5,7 @@
 */
 
 import Foundation
+import XCTest
 
 func isAnagram(w1:String, w2:String) -> Bool {
     let s1 = Array(w1.lowercased().characters).sorted()
@@ -12,9 +13,9 @@ func isAnagram(w1:String, w2:String) -> Bool {
     return s1 == s2
 }
 
-let r1 = isAnagram(w1: "TEAM", w2: "meta")
-let r2 = isAnagram(w1: "TEAM", w2: "MEATT")
-let r3 = isAnagram(w1: "MTTEAM", w2: "EAMTTM")
-let r4 = isAnagram(w1: "TEAM", w2: "")
+XCTAssert( isAnagram(w1: "TEAM", w2: "meta") )
+XCTAssertFalse( isAnagram(w1: "TEAM", w2: "MEATT") )
+XCTAssert( isAnagram(w1: "MTTEAM", w2: "EAMTTM") )
+XCTAssertFalse( isAnagram(w1: "TEAM", w2: "") )
 
 //: [Next](@next)
