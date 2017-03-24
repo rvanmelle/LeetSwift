@@ -1,6 +1,8 @@
 //: [Previous](@previous)
 
 import Foundation
+import UIKit
+import PlaygroundSupport
 
 /*
  Write a program to solve a Sudoku puzzle by filling the empty cells.
@@ -11,6 +13,11 @@ import Foundation
  
  https://leetcode.com/problems/valid-sudoku/#/description
 */
+
+let v = UIView(frame:CGRect(x:0, y:0, width:200, height:200))
+v.backgroundColor = UIColor.red
+PlaygroundPage.current.liveView = v
+PlaygroundPage.current.needsIndefiniteExecution = true
 
 struct Board {
 
@@ -58,6 +65,26 @@ struct Board {
         }
         return true
     }
+
+    func render() {
+
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 512, height: 512))
+        let img = renderer.image { ctx in
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = .center
+
+            let attrs = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Thin", size: 36)!, NSParagraphStyleAttributeName: paragraphStyle, NSForegroundColorAttributeName: UIColor.red]
+
+            for j in 0...rows-1 {
+                for i in 0...cols-1 {
+                    let c = self[i,j].description
+                    c.draw(with: CGRect(x: i*40+50, y: j*40+50, width: 40, height: 40), options: .usesLineFragmentOrigin, attributes: attrs, context: nil)
+                }
+            }
+        }
+        let iv = UIImageView(image: img)
+        PlaygroundPage.current.liveView = iv
+    }
 }
 
 func solveSudoku(_ board: inout Board) {
@@ -80,6 +107,7 @@ let problem : [[Character]] = [
 ]
 
 var b = Board(data:problem)
+b.render()
 solveSudoku(&b)
 
 
