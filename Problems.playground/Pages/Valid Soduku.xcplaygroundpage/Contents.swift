@@ -1,7 +1,7 @@
 //: [Previous](@previous)
 
 /*
- Determine if a Sudoku is valid, according to: Sudoku Puzzles - The Rules.
+ 36. Determine if a Sudoku is valid, according to: Sudoku Puzzles - The Rules.
 
  The Sudoku board could be partially filled, where empty cells are filled with the character '.'.
  
@@ -33,6 +33,19 @@ struct Board {
     func rowValues(_ r:Int) -> [Character] { return row(r).filter { $0 != "." }.sorted() }
     func colValues(_ r:Int) -> [Character] { return col(r).filter { $0 != "." }.sorted() }
 
+    func unitValues(_ row:Int, col:Int) -> [Character] {
+        let row = 3*(row / 3)
+        let col = 3*(col / 3)
+        var vals : [Character] = []
+        for i in row...(row+2) {
+            for j in col...(col+2) {
+                vals.append(self[i,j])
+            }
+        }
+        return vals.filter { $0 != "." }.sorted()
+    }
+
+
     var rows: Int { return data.count }
     var cols: Int{ return data[0].count }
 
@@ -56,6 +69,17 @@ struct Board {
                 }
             }
             //print(board.col(i).sorted().map {$0.description}.joined() )
+        }
+        for i in [0,3,6] {
+            for j in [0,3,6] {
+                let vals = unitValues(i, col: j)
+                guard vals.count > 1 else { continue }
+                for j in 1...vals.count-1 {
+                    if vals[j-1].asciiValue! >= vals[j].asciiValue! {
+                        return false
+                    }
+                }
+            }
         }
         return true
     }
@@ -83,6 +107,10 @@ var b = Board(data:problem)
 XCTAssert( isValidSudoku(b) )
 b[0,0] = "6"
 XCTAssert( !isValidSudoku(b) )
+b[0,0] = "5"
+b[3,3] = "2"
+XCTAssert( !isValidSudoku(b) )
+
 
 
 //: [Next](@next)

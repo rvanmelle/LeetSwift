@@ -5,6 +5,8 @@ import UIKit
 import PlaygroundSupport
 
 /*
+ https://leetcode.com/problems/sudoku-solver/#/description
+ 
  Write a program to solve a Sudoku puzzle by filling the empty cells.
 
  Empty cells are indicated by the character '.'.
@@ -14,10 +16,11 @@ import PlaygroundSupport
  https://leetcode.com/problems/valid-sudoku/#/description
 */
 
-let v = UIView(frame:CGRect(x:0, y:0, width:200, height:200))
+/*let v = UIView(frame:CGRect(x:0, y:0, width:200, height:200))
 v.backgroundColor = UIColor.red
 PlaygroundPage.current.liveView = v
 PlaygroundPage.current.needsIndefiniteExecution = true
+*/
 
 struct Board {
 
@@ -38,6 +41,18 @@ struct Board {
     }
     func rowValues(_ r:Int) -> [Character] { return row(r).filter { $0 != "." }.sorted() }
     func colValues(_ r:Int) -> [Character] { return col(r).filter { $0 != "." }.sorted() }
+
+    func unitValues(_ row:Int, col:Int) -> [Character] {
+        let row = 3*(row / 3)
+        let col = 3*(col / 3)
+        var vals : [Character] = []
+        for i in row...(row+2) {
+            for j in col...(col+2) {
+                vals.append(self[i,j])
+            }
+        }
+        return vals.filter { $0 != "." }.sorted()
+    }
 
     var rows: Int { return data.count }
     var cols: Int{ return data[0].count }
@@ -63,6 +78,17 @@ struct Board {
             }
             //print(board.col(i).sorted().map {$0.description}.joined() )
         }
+        for i in [0,3,6] {
+            for j in [0,3,6] {
+                let vals = unitValues(i, col: j)
+                guard vals.count > 1 else { continue }
+                for j in 1...vals.count-1 {
+                    if vals[j-1].asciiValue! >= vals[j].asciiValue! {
+                        return false
+                    }
+                }
+            }
+        }
         return true
     }
 
@@ -85,10 +111,48 @@ struct Board {
         let iv = UIImageView(image: img)
         PlaygroundPage.current.liveView = iv
     }
+
+    var nextOpenPosition: (Int,Int)? {
+        for j in 0...rows-1 {
+            for i in 0...cols-1 {
+                if self[j,i] == "." {
+                    return (j,i)
+                }
+            }
+        }
+        return nil
+    }
+
+    func validMoves(at row:Int, col:Int) -> [Character] {
+        let allPossible : [Character] =  ["1","2","3","4","5","6","7","8","9"]
+        let allUsed = rowValues(row) + colValues(col) + unitValues(row, col: col)
+        let allValid = allPossible.filter { (c) -> Bool in
+            return !allUsed.contains(c)
+        }
+        return allValid
+    }
 }
 
-func solveSudoku(_ board: inout Board) {
-    
+func solveSudoku(_ board: inout Board) -> Bool {
+    // Basic depth-first back-tracking brute-force search
+    guard let (row,col) = board.nextOpenPosition else {
+        return board.isValidPosition
+    }
+    let isLastPosition = row == 8 && col == 8
+    //print(row,col, isLastPosition, board.validMoves(at: row, col: col))
+    for attemptedChar in board.validMoves(at: row, col: col) {
+        board[row,col] = attemptedChar
+        if board.isValidPosition && isLastPosition {
+            return true
+        }
+        if board.isValidPosition {
+            if solveSudoku(&board) {
+                return true
+            }
+        }
+    }
+    board[row,col] = "."
+    return false
 }
 
 
@@ -106,9 +170,25 @@ let problem : [[Character]] = [
     [".",".",".",".","8",".",".","7","9"],
 ]
 
-var b = Board(data:problem)
-b.render()
+
+let problem2 : [[Character]] = [
+    [".","5",".","8",".","7",".","2","."],
+    ["6",".",".",".","1",".",".","9","."],
+    ["7",".","2","5","4",".",".",".","6"],
+    [".","7",".",".","2",".","3",".","1"],
+    ["5",".","4",".",".",".","9",".","8"],
+    ["1",".","3",".","8",".",".","7","."],
+    ["9",".",".",".","7","6","2",".","5"],
+    [".","6",".",".","9",".",".",".","3"],
+    [".","8",".","1",".","3",".","4","."],
+]
+
+var b = Board(data:problem2)
+b.unitValues(3, col: 3)
+
+//b.render()
 solveSudoku(&b)
+b.render()
 
 
 //: [Next](@next)
