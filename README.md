@@ -13,14 +13,14 @@ or in technical interviews.
 
 These are all solved as pages in the playground. Some of them such as the Sodoku solver will render the solution to screen.
 
-- 36. Valid Sudoku
-- 37. Sudoku Solver
-- 9. Palindrome Number
-- 7. Reverse Integer
-- 12. Integer to Roman
-- 482. License Key Formatting
-- 518. Coin Change 2
-- 388. Longest Absolute File Path
+- [36. Valid Sudoku](https://leetcode.com/problems/valid-sudoku/#/description)
+- [37. Sudoku Solver](https://leetcode.com/problems/sudoku-solver/#/description)
+- [9. Palindrome Number]( https://leetcode.com/problems/palindrome-number/#/description)
+- [7. Reverse Integer](https://leetcode.com/problems/reverse-integer/#/description)
+- [12. Integer to Roman](https://leetcode.com/problems/integer-to-roman/#/description)
+- [482. License Key Formatting](https://leetcode.com/problems/license-key-formatting/#/description)
+- [518. Coin Change 2](https://leetcode.com/problems/coin-change-2/#/description)
+- [388. Longest Absolute File Path](https://leetcode.com/problems/longest-absolute-file-path/#/description)
 - write a memoize function
 - Write a function which generates all of the unique permutations of a string
 - Determine if two strings are anagrams of each other. The function can be case insensitive.

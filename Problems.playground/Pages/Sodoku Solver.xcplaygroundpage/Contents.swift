@@ -14,6 +14,11 @@ import PlaygroundSupport
  You may assume that there will be only one unique solution.
  
  https://leetcode.com/problems/valid-sudoku/#/description
+ 
+ Would be fun to implement the much more clever Norvig solution:
+ 
+ http://norvig.com/sudoku.html
+
 */
 
 /*let v = UIView(frame:CGRect(x:0, y:0, width:200, height:200))
