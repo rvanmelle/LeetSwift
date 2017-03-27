@@ -14,5 +14,6 @@
         <page name='Valid Soduku'/>
         <page name='Sodoku Solver'/>
         <page name='Anagram'/>
+        <page name='LFU Cache'/>
     </pages>
 </playground>
