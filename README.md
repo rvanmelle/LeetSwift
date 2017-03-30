@@ -13,6 +13,7 @@ or in technical interviews.
 
 These are all solved as pages in the playground. Some of them such as the Sodoku solver will render the solution to screen.
 
+- [2. Add Two Numbers](https://leetcode.com/problems/add-two-numbers/#/description)
 - [36. Valid Sudoku](https://leetcode.com/problems/valid-sudoku/#/description)
 - [37. Sudoku Solver](https://leetcode.com/problems/sudoku-solver/#/description)
 - [9. Palindrome Number]( https://leetcode.com/problems/palindrome-number/#/description)

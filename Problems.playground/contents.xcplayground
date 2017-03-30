@@ -14,7 +14,5 @@
         <page name='Valid Soduku'/>
         <page name='Sodoku Solver'/>
         <page name='Anagram'/>
-        <page name='LFU Cache'/>
-        <page name='Reverse Nodes in a k-group'/>
     </pages>
 </playground>

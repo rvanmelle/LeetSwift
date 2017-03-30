@@ -1,6 +1,8 @@
 //: Playground - noun: a place where people can play
 
 /*
+ 2. Add Two Numbers
+
  https://leetcode.com/problems/add-two-numbers/#/description
 
  You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
@@ -37,23 +39,24 @@ public class ListNode : CustomStringConvertible {
     }
 
     var reversed : ListNode {
-        let chars : [Character] = Array(description.characters)
+        return description.asReversedIntegerList!
+    }
+}
+
+extension String {
+    var asReversedIntegerList: ListNode? {
+        let chars : [Character] = Array(characters)
         let charsReversed = chars.reversed()
         let intsReversed = charsReversed.map { (ch) -> Int in
             return (ch.description as NSString).integerValue
         }
-        return makeList(intsReversed)!
+        return makeList(intsReversed)
     }
 }
 
 func addTwoNumbers(_ l1: ListNode, _ l2: ListNode) -> ListNode? {
     let sum = l1.reversed.asInteger! + l2.reversed.asInteger!
-    let chars : [Character] = Array(sum.description.characters)
-    let charsReversed = chars.reversed()
-    let intsReversed = charsReversed.map { (ch) -> Int in
-        return (ch.description as NSString).integerValue
-    }
-    return makeList(intsReversed)
+    return sum.description.asReversedIntegerList
 }
 
 func makeList(_ nums:[Int]) -> ListNode? {
