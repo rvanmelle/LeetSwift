@@ -33,35 +33,30 @@ public class ListNode : CustomStringConvertible {
     }
 
     public var asInteger : Int? {
-        return Int(description)
+        return (description as NSString).integerValue
     }
 
     var reversed : ListNode {
         let chars : [Character] = Array(description.characters)
         let charsReversed = chars.reversed()
         let intsReversed = charsReversed.map { (ch) -> Int in
-            return Int(ch)
+            return (ch.description as NSString).integerValue
         }
-        return makeList(intsReversed)
+        return makeList(intsReversed)!
     }
 }
 
-extension Int {
-    /*var asList : ListNode {
-     let theString = description
-     for x in theString.characters {
-     }
-     }*/
-}
-
-
-class Solution {
-    func addTwoNumbers(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
-        return nil
+func addTwoNumbers(_ l1: ListNode, _ l2: ListNode) -> ListNode? {
+    let sum = l1.reversed.asInteger! + l2.reversed.asInteger!
+    let chars : [Character] = Array(sum.description.characters)
+    let charsReversed = chars.reversed()
+    let intsReversed = charsReversed.map { (ch) -> Int in
+        return (ch.description as NSString).integerValue
     }
+    return makeList(intsReversed)
 }
 
-func makeList(nums:[Int]) -> ListNode? {
+func makeList(_ nums:[Int]) -> ListNode? {
     guard let first = nums.first else { return nil }
     let result = ListNode(first)
     var prev = result
@@ -73,16 +68,11 @@ func makeList(nums:[Int]) -> ListNode? {
     return result
 }
 
-let x1 : ListNode = makeList(nums:[2,4,3])!
-let x2 : ListNode = makeList(nums:[5,6,4])!
+let x1 : ListNode = makeList([2,4,3])!
+let x2 : ListNode = makeList([5,6,4])!
 
-let r1 = x1.reversed
-let r2 = x2.reversed
-print(r1)
-print(r2)
-print(x1.asInteger!)
-print(x2.asInteger!)
-//print(r1)
-if let result = Solution().addTwoNumbers(x1, x2) {
-    print(result)
+if let result = addTwoNumbers(x1, x2) {
+    XCTAssert(result.asInteger == 708)
+} else {
+    XCTAssert(false)
 }

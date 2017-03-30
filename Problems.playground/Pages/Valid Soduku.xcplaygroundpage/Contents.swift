@@ -49,35 +49,28 @@ struct Board {
     var rows: Int { return data.count }
     var cols: Int{ return data[0].count }
 
+    private func validSet(_ vals:[Character]) -> Bool {
+        // Is the set of characters constitue a valid/legal set?
+        guard vals.count > 1 else { return true }
+        for j in 1...vals.count-1 {
+            if vals[j-1].asciiValue! >= vals[j].asciiValue! {
+                return false
+            }
+        }
+        return true
+    }
+
     var isValidPosition: Bool {
         for i in 0...rows-1 {
-            let vals = rowValues(i)
-            guard vals.count > 1 else { continue }
-            for j in 1...vals.count-1 {
-                if vals[j-1].asciiValue! >= vals[j].asciiValue! {
-                    return false
-                }
-            }
-            //print(board.row(i).sorted().map {$0.description}.joined() )
+            if !validSet(rowValues(i)) { return false }
         }
         for i in 0...cols-1 {
-            let vals = colValues(i)
-            guard vals.count > 1 else { continue }
-            for j in 1...vals.count-1 {
-                if vals[j-1].asciiValue! >= vals[j].asciiValue! {
-                    return false
-                }
-            }
-            //print(board.col(i).sorted().map {$0.description}.joined() )
+            if !validSet(colValues(i)) { return false }
         }
         for i in [0,3,6] {
             for j in [0,3,6] {
-                let vals = unitValues(i, col: j)
-                guard vals.count > 1 else { continue }
-                for j in 1...vals.count-1 {
-                    if vals[j-1].asciiValue! >= vals[j].asciiValue! {
-                        return false
-                    }
+                if !validSet(unitValues(i, col: j)) {
+                    return false
                 }
             }
         }
