@@ -1,6 +1,7 @@
 //: [Previous](@previous)
 
 import Foundation
+import XCTest
 
 /*
  
@@ -63,7 +64,7 @@ func lengthLongestPath(_ input: String) -> Int {
     let paths = input.components(separatedBy: "\n")
     guard paths.count > 1 else {
         if let p = paths.first {
-            i f p.contains(".") {
+            if p.contains(".") {
                 return p.characters.count
             } else {
                 return -1
@@ -100,7 +101,8 @@ func lengthLongestPath(_ input: String) -> Int {
 }
 
 
-lengthLongestPath("dir\n\tsubdir1\n\t\tfile1.ext\n\t\tsubsubdir1\n\tsubdir2\n\t\tsubsubdir2\n\t\t\tfile2.ext") == "dir/subdir2/subsubdir2/file2.ext"
-lengthLongestPath("dir\n\tsubdir1\n\tsubdir2\n\t\tfile.ext")
+XCTAssert( lengthLongestPath("dir\n\tsubdir1\n\t\tfile1.ext\n\t\tsubsubdir1\n\tsubdir2\n\t\tsubsubdir2\n\t\t\tfile2.ext") == 32 )
+//== "dir/subdir2/subsubdir2/file2.ext"
+XCTAssert( lengthLongestPath("dir\n\tsubdir1\n\tsubdir2\n\t\tfile.ext") == 20)
 
 //: [Next](@next)
