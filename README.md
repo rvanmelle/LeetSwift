@@ -24,4 +24,5 @@ These are all solved as pages in the playground. Some of them such as the Sodoku
 - write a memoize function
 - Write a function which generates all of the unique permutations of a string
 - Determine if two strings are anagrams of each other. The function can be case insensitive.
+- [460. LFU Cache](https://leetcode.com/problems/lfu-cache/#/description)
 
