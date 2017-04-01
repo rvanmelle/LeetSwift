@@ -22,7 +22,12 @@
 
  */
 import Foundation
+import XCTest
 
+func reverseKGroup(_ head: ListNode?, _ k: Int) -> ListNode? {
+    return nil
+}
 
+ListNode([1,2,3,4,5])?.array
 
 //: [Next](@next)

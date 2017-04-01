@@ -18,21 +18,7 @@ import UIKit
 import Foundation
 import XCTest
 
-public class ListNode : CustomStringConvertible {
-    public var val: Int
-    public var next: ListNode?
-    public init(_ val: Int) {
-        self.val = val
-        self.next = nil
-    }
-
-    public var description : String {
-        if let n = self.next {
-            return "\(self.val)\(n)"
-        } else {
-            return "\(self.val)"
-        }
-    }
+extension ListNode {
 
     public var asInteger : Int? {
         return (description as NSString).integerValue
@@ -50,7 +36,7 @@ extension String {
         let intsReversed = charsReversed.map { (ch) -> Int in
             return (ch.description as NSString).integerValue
         }
-        return makeList(intsReversed)
+        return ListNode(intsReversed)
     }
 }
 
@@ -59,22 +45,11 @@ func addTwoNumbers(_ l1: ListNode, _ l2: ListNode) -> ListNode? {
     return sum.description.asReversedIntegerList
 }
 
-func makeList(_ nums:[Int]) -> ListNode? {
-    guard let first = nums.first else { return nil }
-    let result = ListNode(first)
-    var prev = result
-    for other in nums[1...nums.count-1] {
-        let next = ListNode(other)
-        prev.next = next
-        prev = next
-    }
-    return result
-}
+let x1 : ListNode = ListNode([2,4,3])!
+let x2 : ListNode = ListNode([5,6,4])!
+let result = addTwoNumbers(x1, x2)
 
-let x1 : ListNode = makeList([2,4,3])!
-let x2 : ListNode = makeList([5,6,4])!
-
-if let result = addTwoNumbers(x1, x2) {
+if let result = result {
     XCTAssert(result.asInteger == 708)
 } else {
     XCTAssert(false)
